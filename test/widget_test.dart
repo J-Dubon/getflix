@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:getflix/main.dart';
+import 'package:getflix/features/common_main/common_main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
