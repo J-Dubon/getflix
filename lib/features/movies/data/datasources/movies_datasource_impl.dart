@@ -22,9 +22,13 @@ class MoviesDatasourceImpl extends MoviesDataSource {
       }
     );
 
-    return MoviesModel.fromJson(
-      jsonDecode(jsonEncode(result)),
+    // print(jsonEncode(result.body));
+
+    final parsedResult = MoviesModel.fromJson(
+      jsonDecode(result.body),
     );
+
+    return parsedResult;
   }
 
 }
