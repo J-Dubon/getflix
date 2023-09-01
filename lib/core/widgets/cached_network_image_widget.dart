@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:getflix/core/widgets/loader_widget.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
 
@@ -22,7 +23,9 @@ class CachedNetworkImageWidget extends StatelessWidget {
       fadeInDuration: const Duration(milliseconds: 150),
       fadeOutDuration: const Duration(milliseconds: 150),
       fit: fit,
-      placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+      placeholder: (context, url) => const Center(
+        child: LoaderWidget(),
+      ),
     );
   }
 }

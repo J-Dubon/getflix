@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:getflix/core/network/server_api_constants.dart';
+import 'package:getflix/core/widgets/loader_widget.dart';
 import 'package:getflix/features/movies/presentation/widgets/movie_card.dart';
 
 import '../../../../core/dependency_injection/injection_container.dart';
@@ -78,7 +79,9 @@ class _MoviesScreenState extends State<MoviesScreen> {
             }
 
             return const Center(
-              child: CircularProgressIndicator(),
+              child: LoaderWidget(
+                size: 100,
+              ),
             );
 
           },
