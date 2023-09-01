@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:getflix/features/movies/data/models/movie_detail_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/network/server_api_constants.dart';
@@ -22,13 +23,30 @@ class MoviesDatasourceImpl extends MoviesDataSource {
       }
     );
 
-    // print(jsonEncode(result.body));
-
     final parsedResult = MoviesModel.fromJson(
       jsonDecode(result.body),
     );
 
     return parsedResult;
+  }
+
+  @override
+  Future<MovieDetailModel> getMovieDetail({required int id, String language = 'es-MX'}) async {
+    
+    final http.Response result = await http.get(
+      Uri.parse('${ServerApiConstants.baseUrl}/$id?language=$language-US'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${ServerApiConstants.tokenApiKey}'
+      }
+    );
+
+    final parsedResult = MovieDetailModel.fromJson(
+      jsonDecode(result.body),
+    );
+
+    return parsedResult;
+
   }
 
 }
