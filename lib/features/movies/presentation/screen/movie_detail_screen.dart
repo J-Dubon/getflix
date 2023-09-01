@@ -41,18 +41,18 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      body: Hero(
+    return Hero(
         tag: 'movieImage${widget.id}',
-        child: BlocProvider.value(
+      child: Scaffold(
+        body: BlocProvider.value(
           value: moviesBloc,
           child: BlocBuilder<MoviesBloc, MoviesState>(
             builder: (context, state) {
-
+    
               if(state is SuccessMovieInfoDetailState){
                 return CustomScrollView(
                   slivers: [
-
+    
                     // Appbar
                     SliverAppBar(
                       expandedHeight: 200,
@@ -62,7 +62,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         ),
                       ),
                     ),
-
+    
                     // Body
                     SliverToBoxAdapter(
                       child: Padding(
@@ -70,7 +70,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-      
+        
                             // Header with genres, title, year and clasification
                             MovieDetailHeader(
                               genres: state.movieDetail.genres, 
@@ -80,14 +80,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               voteAverage: state.movieDetail.voteAverage,
                               overview: state.movieDetail.overview,
                             ),
-
+    
                             // Actors
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10.0),
                               child: SizedBox(
                                 height: 240,
                                 child: ListView.builder(
-
+    
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   itemCount: state.cast.length,
@@ -101,13 +101,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                             state.cast[index].profilePath != null ? 
                                               Image.network('${ServerApiConstants.baseImagesUrl}/original/${state.cast[index].profilePath}', fit: BoxFit.cover, height: 130, width: 100,) 
                                               : Image.asset('assets/images/profile-default.webp', fit: BoxFit.cover, height: 130, width: 100,),
-
+    
                                             // Name of the actor
                                             Text(state.cast[index].name, 
                                               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12), 
                                               textAlign: TextAlign.center,
                                             ),
-
+    
                                             // Character name
                                             Text(state.cast[index].character, 
                                               style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10), 
@@ -125,17 +125,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         ),
                       ),
                     )
-
+    
                   ],
                 );
               }
-
+    
               return const Center(
                 child: LoaderWidget(
                   size: 100,
                 ),
               );
-
+    
             },
           ),
         ),

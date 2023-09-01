@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -54,23 +55,26 @@ class _MoviesScreenState extends State<MoviesScreen> {
                   itemCount: state.moviesEntity.results.length,
                   itemBuilder: (context, index) {
                     
-                    return Hero(
-                      tag: 'movieImage${state.moviesEntity.results[index].id}',
-                      child: MovieCard(
-                        imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
-                        title: state.moviesEntity.results[index].title,
-                        index: index,
-                        onTap: (){
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(
-                              builder: (context) => MovieDetailScreen(
-                                id: state.moviesEntity.results[index].id,
-                                imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
-                              )
-                            ),
-                          );
-                        },
+                    return BounceInUp(
+                      delay: Duration(milliseconds: index * 50),
+                      child: Hero(
+                        tag: 'movieImage${state.moviesEntity.results[index].id}',
+                        child: MovieCard(
+                          imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
+                          title: state.moviesEntity.results[index].title,
+                          index: index,
+                          onTap: (){
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => MovieDetailScreen(
+                                  id: state.moviesEntity.results[index].id,
+                                  imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
+                                )
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   }
