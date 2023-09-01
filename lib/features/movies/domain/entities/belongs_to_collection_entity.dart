@@ -4,13 +4,13 @@ class BelongsToCollectionEntity extends Equatable {
   final int id;
   final String name;
   final String posterPath;
-  final String backdropPath;
+  final String? backdropPath;
 
   const BelongsToCollectionEntity({
     required this.id,
     required this.name,
     required this.posterPath,
-    required this.backdropPath,
+    this.backdropPath,
   });
 
   @override
