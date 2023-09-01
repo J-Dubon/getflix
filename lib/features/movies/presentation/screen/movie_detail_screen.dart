@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,18 +70,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
       
-                              // Header with genres, title, year and clasification
-                              MovieDetailHeader(
-                                genres: state.movieDetail.genres, 
-                                title: state.movieDetail.title,
-                                year: '${state.movieDetail.releaseDate.year}',
-                                status: state.movieDetail.status,
-                                voteAverage: state.movieDetail.voteAverage,
-                                overview: state.movieDetail.overview,
-                              ),
+                            // Header with genres, title, year and clasification
+                            MovieDetailHeader(
+                              genres: state.movieDetail.genres, 
+                              title: state.movieDetail.title,
+                              year: '${state.movieDetail.releaseDate.year}',
+                              status: state.movieDetail.status,
+                              voteAverage: state.movieDetail.voteAverage,
+                              overview: state.movieDetail.overview,
+                            ),
 
-                              // Actors
-                              SizedBox(
+                            // Actors
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              child: SizedBox(
                                 height: 240,
                                 child: ListView.builder(
 
@@ -88,31 +91,35 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   shrinkWrap: true,
                                   itemCount: state.cast.length,
                                   itemBuilder: (context, index) {
-                                    return SizedBox(
-                                      width: 120,
-                                      child: Column(
-                                        children: [
-                                          state.cast[index].profilePath != null ? 
-                                            Image.network('${ServerApiConstants.baseImagesUrl}/original/${state.cast[index].profilePath}', fit: BoxFit.cover, height: 130, width: 100,) 
-                                            : Image.asset('assets/images/profile-default.webp', fit: BoxFit.cover, height: 130, width: 100,),
-                                      
-                                          // Name of the actor
-                                          Text(state.cast[index].name, 
-                                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12), 
-                                            textAlign: TextAlign.center,
-                                          ),
+                                    return FadeInUp(
+                                      delay: Duration(milliseconds: 550 + (100 * index)),
+                                      child: SizedBox(
+                                        width: 120,
+                                        child: Column(
+                                          children: [
+                                            state.cast[index].profilePath != null ? 
+                                              Image.network('${ServerApiConstants.baseImagesUrl}/original/${state.cast[index].profilePath}', fit: BoxFit.cover, height: 130, width: 100,) 
+                                              : Image.asset('assets/images/profile-default.webp', fit: BoxFit.cover, height: 130, width: 100,),
 
-                                          // Character name
-                                          Text(state.cast[index].character, 
-                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10), 
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      )
+                                            // Name of the actor
+                                            Text(state.cast[index].name, 
+                                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12), 
+                                              textAlign: TextAlign.center,
+                                            ),
+
+                                            // Character name
+                                            Text(state.cast[index].character, 
+                                              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10), 
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        )
+                                      ),
                                     );
                                   },
                                 ),
-                              )
+                              ),
+                            )
                           ]
                         ),
                       ),

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:getflix/features/movies/presentation/widgets/radial_progress.dart';
 
@@ -46,41 +47,48 @@ class MovieDetailHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
         
-        
                 // Title
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Text(title, style: Theme.of(context).textTheme.titleLarge,),
+                FadeInUp(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Text(title, style: Theme.of(context).textTheme.titleLarge,),
+                  ),
                 ),
         
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    children: [
-                      
-                      // Status
-                      Text(status, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: calculateColorFromStatus()),),
-                      
-                      const Text(' - '),
+                FadeInUp(
+                  delay: const Duration(milliseconds: 100),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Row(
+                      children: [
+                        
+                        // Status
+                        Text(status, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: calculateColorFromStatus()),),
+                        
+                        const Text(' - '),
+                  
+                        // Year
+                        Text(year, style: Theme.of(context).textTheme.bodyMedium,),
                 
-                      // Year
-                      Text(year, style: Theme.of(context).textTheme.bodyMedium,),
-
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ]
             ),
             
             // Vote average radial progress
-            trailing: SizedBox(
-              width: 100,
-              height: 200,
-              child: RadialProgress(
-                value: voteAverage,
-                color: calculateColorFromVoteAverage(),
-                strokeWidth: 4,
-                strokeWidthLine: 3,
+            trailing: FadeInUp(
+              delay: const Duration(milliseconds: 200),
+              child: SizedBox(
+                width: 100,
+                height: 200,
+                child: RadialProgress(
+                  value: voteAverage,
+                  color: calculateColorFromVoteAverage(),
+                  strokeWidth: 4,
+                  strokeWidthLine: 3,
+                ),
               ),
             ),
           ),
@@ -89,19 +97,24 @@ class MovieDetailHeader extends StatelessWidget {
         // Genre
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          // child: Text(genres.map((e) => e.name).join(', '), style: Theme.of(context).textTheme.bodyMedium,),
-          child: Wrap(children: genres.map((e) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 0),
-            child: Chip(
-              label: Text(e.name),
+          child: Wrap(children: genres.asMap().entries.map((e) => FadeInUp(
+            delay: Duration(milliseconds: 300 + (e.key * 100)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 0),
+              child: Chip(
+                label: Text(e.value.name),
+              ),
             ),
           )).toList()),
         ),
 
         // Overview
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Text(overview, style: Theme.of(context).textTheme.bodyLarge,),
+        FadeInUp(
+          delay: const Duration(milliseconds: 450),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Text(overview, style: Theme.of(context).textTheme.bodyLarge,),
+          ),
         ),
       ],
     );
