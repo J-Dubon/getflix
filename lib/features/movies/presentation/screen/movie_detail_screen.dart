@@ -74,6 +74,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 genres: state.movieDetail.genres, 
                                 title: state.movieDetail.title,
                                 year: '${state.movieDetail.releaseDate.year}',
+                                status: state.movieDetail.status,
                                 voteAverage: state.movieDetail.voteAverage,
                                 overview: state.movieDetail.overview,
                               ),

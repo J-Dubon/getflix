@@ -8,6 +8,7 @@ class MovieDetailHeader extends StatelessWidget {
     required this.genres,
     required this.title,
     required this.year,
+    required this.status,
     required this.voteAverage,
     required this.overview,
     super.key
@@ -22,6 +23,9 @@ class MovieDetailHeader extends StatelessWidget {
   /// Year of the movie
   final String year;
 
+  /// Status of the movie
+  final String status;
+
   /// Vote average of the movie
   final double voteAverage;
 
@@ -34,7 +38,7 @@ class MovieDetailHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        // Genres, title, year and clasification
+        // Genres, title, year and status
         Material(
           child: ListTile(
             contentPadding: EdgeInsets.zero,
@@ -53,12 +57,15 @@ class MovieDetailHeader extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
                   child: Row(
                     children: [
+                      
+                      // Status
+                      Text(status, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: calculateColorFromStatus()),),
+                      
+                      const Text(' - '),
                 
                       // Year
                       Text(year, style: Theme.of(context).textTheme.bodyMedium,),
-                
-                      // Clasification
-                      
+
                     ],
                   ),
                 ),
@@ -71,7 +78,7 @@ class MovieDetailHeader extends StatelessWidget {
               height: 200,
               child: RadialProgress(
                 value: voteAverage,
-                color: calculateColor(),
+                color: calculateColorFromVoteAverage(),
                 strokeWidth: 4,
                 strokeWidthLine: 3,
               ),
@@ -101,13 +108,28 @@ class MovieDetailHeader extends StatelessWidget {
   }
 
   /// Calculate the color of the radial progress
-  Color calculateColor() {
+  Color calculateColorFromVoteAverage() {
 
     if(voteAverage >= 7.5) {
       return Colors.green;
     } 
     
     if(voteAverage >= 5.0) {
+      return Colors.yellow;
+    } 
+    
+    return Colors.red;
+    
+  }
+
+  /// Calculate the color of the status
+  Color calculateColorFromStatus() {
+
+    if(status == 'Released') {
+      return Colors.green;
+    } 
+    
+    if(status == 'Post Production') {
       return Colors.yellow;
     } 
     
