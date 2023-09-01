@@ -9,7 +9,7 @@ abstract class MoviesEvent extends Equatable {
 
 class GetMoviesEvent extends MoviesEvent {
 
-  /// Get Movies Url Event
+  /// Get Movies Event
   const GetMoviesEvent();
 
   @override
@@ -18,13 +18,39 @@ class GetMoviesEvent extends MoviesEvent {
 
 class GetMovieDetailEvent extends MoviesEvent {
 
-  /// Get Movie Detail Url Event
+  /// Get Movie Detail Event
   const GetMovieDetailEvent({
-    required this.id,
+    required this.movieId,
   });
 
-  final int id;
+  final int movieId;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [movieId];
+}
+
+class GetCreditsEvent extends MoviesEvent {
+
+  /// Get Credits Event
+  const GetCreditsEvent({
+    required this.movieId,
+  });
+
+  final int movieId;
+
+  @override
+  List<Object> get props => [movieId];
+}
+
+class GetMovieInfoDetailEvent extends MoviesEvent {
+
+  /// Get Movie Info Detail Event
+  const GetMovieInfoDetailEvent({
+    required this.movieId,
+  });
+
+  final int movieId;
+
+  @override
+  List<Object> get props => [movieId];
 }

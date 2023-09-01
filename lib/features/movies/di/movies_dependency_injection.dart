@@ -8,6 +8,7 @@ import 'package:getflix/features/movies/domain/use_cases/get_movies_use_case.dar
 import 'package:getflix/features/movies/presentation/bloc/movies_bloc.dart';
 
 import '../../../core/dependency_injection/injection_container.dart';
+import '../domain/use_cases/get_credits_movie_use_case.dart';
 
 Future<void> initMoviesDependencies() async {
 
@@ -17,6 +18,7 @@ Future<void> initMoviesDependencies() async {
     () => MoviesBloc(
       getMoviesUsecase: getIt(),
       getMovieDetailUseCase: getIt(),
+      getCreditsUseCase: getIt(),
     ),
   );
 
@@ -34,6 +36,8 @@ Future<void> initMoviesDependencies() async {
 
   getIt.registerLazySingleton(() => GetMovieDetailUseCase(getIt()));
 
+  getIt.registerLazySingleton(() => GetCreditsUseCase(getIt()));
+
 }
 
 void _unregisterServices() {
@@ -41,4 +45,5 @@ void _unregisterServices() {
   removeRegistrationIfExists<MoviesRepository>();
   removeRegistrationIfExists<GetMoviesUseCase>();
   removeRegistrationIfExists<GetMovieDetailUseCase>();
+  removeRegistrationIfExists<GetCreditsUseCase>();
 }

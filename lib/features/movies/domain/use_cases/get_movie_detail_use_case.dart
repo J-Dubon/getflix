@@ -6,12 +6,12 @@ import '../../../../core/use_cases/usecase.dart';
 import '../entities/movie_detail_entity.dart';
 
 class ParamsMovieDetailUseCase {
-  final String language;
-  final int id;
+  final String? language;
+  final int movieId;
 
   const ParamsMovieDetailUseCase({
-    required this.language,
-    required this.id,
+    this.language,
+    required this.movieId,
   });
 }
 
@@ -32,7 +32,7 @@ class GetMovieDetailUseCase extends UseCase<GetMovieDetailUseCaseResult, ParamsM
   Future<Either<Failure, GetMovieDetailUseCaseResult>> call(ParamsMovieDetailUseCase params,) async {
     
     // Get movies from API
-    final result = await repository.getMovieDetail(id: params.id, language: params.language);
+    final result = await repository.getMovieDetail(movieId: params.movieId, language: params.language);
 
     // Return result
     return result.fold(

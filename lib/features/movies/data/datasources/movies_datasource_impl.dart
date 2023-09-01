@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:getflix/features/movies/data/models/credits_model.dart';
 import 'package:getflix/features/movies/data/models/movie_detail_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,7 @@ class MoviesDatasourceImpl extends MoviesDataSource {
   @override
   Future<MoviesModel> getMovies({
     required int page,
-    String language = 'es-MX',
+    String? language = 'es-MX',
   }) async {
 
     final http.Response result = await http.get(
@@ -31,10 +32,10 @@ class MoviesDatasourceImpl extends MoviesDataSource {
   }
 
   @override
-  Future<MovieDetailModel> getMovieDetail({required int id, String language = 'es-MX'}) async {
+  Future<MovieDetailModel> getMovieDetail({required int movieId, String? language = 'es-MX'}) async {
     
     final http.Response result = await http.get(
-      Uri.parse('${ServerApiConstants.baseUrl}/$id?language=$language-US'),
+      Uri.parse('${ServerApiConstants.baseUrl}/$movieId?language=$language-US'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${ServerApiConstants.tokenApiKey}'
@@ -47,6 +48,24 @@ class MoviesDatasourceImpl extends MoviesDataSource {
 
     return parsedResult;
 
+  }
+  
+  @override
+  Future<CreditsModel> getCredits({required int movieId, String? language = 'es-MX'}) async {
+    
+    final http.Response result = await http.get(
+      Uri.parse('${ServerApiConstants.baseUrl}/$movieId/credits?language=$language-US'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${ServerApiConstants.tokenApiKey}'
+      }
+    );
+
+    final parsedResult = CreditsModel.fromJson(
+      jsonDecode(result.body),
+    );
+
+    return parsedResult;
   }
 
 }
