@@ -18,7 +18,7 @@ class MoviesScreen extends StatefulWidget {
 
 class _MoviesScreenState extends State<MoviesScreen> {
 
-  final moviesBloc = getIt<MoviesBloc>();
+  final MoviesBloc moviesBloc = getIt<MoviesBloc>();
 
   @override
   void initState() {
@@ -51,11 +51,24 @@ class _MoviesScreenState extends State<MoviesScreen> {
                   itemCount: state.moviesEntity.results.length,
                   itemBuilder: (context, index) {
                     
-                    return MovieCard(
-                      imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
-                      title: state.moviesEntity.results[index].title,
-                      index: index,
-                      },
+                    return Hero(
+                      tag: 'movieImage${state.moviesEntity.results[index].id}',
+                      child: MovieCard(
+                        imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
+                        title: state.moviesEntity.results[index].title,
+                        index: index,
+                        onTap: (){
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetailScreen(
+                                id: state.moviesEntity.results[index].id,
+                                imageUrl: '${ServerApiConstants.baseImagesUrl}/original/${state.moviesEntity.results[index].posterPath}',
+                              )
+                            ),
+                          );
+                        },
+                      ),
                     );
                   }
                 ),

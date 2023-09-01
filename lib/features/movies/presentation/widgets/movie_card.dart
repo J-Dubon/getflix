@@ -22,37 +22,39 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-    
-          // Movie Image
-          Container(
-            height: (index % 6 + 1) * 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  imageUrl,
+    return Material(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+      
+            // Movie Image
+            Container(
+              height: (index % 6 + 1) * 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageUrl,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
             ),
-          ),
-    
-          // // Movie Title
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 8.0),
-          //   child: Text(
-          //     title,
-          //     style: const TextStyle(
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //   ),
-          // ),
-        ],
+      
+            // // Movie Title
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 8.0),
+            //   child: Text(
+            //     title,
+            //     style: const TextStyle(
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
