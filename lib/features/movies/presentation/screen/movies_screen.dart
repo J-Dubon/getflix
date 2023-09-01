@@ -33,6 +33,8 @@ class _MoviesScreenState extends State<MoviesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Getflix'),
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
       ),
       body: BlocProvider.value(
         value: moviesBloc,

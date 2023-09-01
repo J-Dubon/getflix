@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getflix/core/widgets/cached_network_image_widget.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({
@@ -18,6 +19,7 @@ class MovieCard extends StatelessWidget {
   /// Index of the movie
   final int index;
 
+  /// On tap function of the movie
   final VoidCallback? onTap;
 
   @override
@@ -27,20 +29,17 @@ class MovieCard extends StatelessWidget {
         onTap: onTap,
         child: Column(
           children: [
-      
-            // Movie Image
-            Container(
-              height: (index % 6 + 1) * 100,
-              decoration: BoxDecoration(
+
+            SizedBox(
+              height: (index % 4 + 2) * 100,
+              width: double.infinity,
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    imageUrl,
-                  ),
-                  fit: BoxFit.cover,
+                child: CachedNetworkImageWidget(
+                  imageUrl: imageUrl,
                 ),
               ),
-            ),
+            )
       
             // // Movie Title
             // Padding(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getflix/core/dependency_injection/injection_container.dart';
+import 'package:getflix/core/widgets/cached_network_image_widget.dart';
 import 'package:getflix/features/movies/presentation/widgets/movie_detail_header.dart';
 
 import '../../../../core/network/server_api_constants.dart';
@@ -55,9 +56,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     SliverAppBar(
                       expandedHeight: 200,
                       flexibleSpace: FlexibleSpaceBar(
-                        background: Image.network(
-                          widget.imageUrl,
-                          fit: BoxFit.cover,
+                        background: CachedNetworkImageWidget(
+                          imageUrl: widget.imageUrl,
                         ),
                       ),
                     ),
